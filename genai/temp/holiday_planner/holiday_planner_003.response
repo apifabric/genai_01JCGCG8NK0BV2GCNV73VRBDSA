@@ -1,0 +1,79 @@
+{
+    "models": [
+        {
+            "classname": "User",
+            "code": "class User(Base):\n    __tablename__ = 'user'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    username = Column(String(50), nullable=False)\n    email = Column(String(100), nullable=False)\n    date_joined = Column(DateTime)\n\n    \"\"\"description: Users participating in holiday planning.\"\"\"",
+            "description": "Users participating in holiday planning.",
+            "name": "User"
+        },
+        {
+            "classname": "Destination",
+            "code": "class Destination(Base):\n    __tablename__ = 'destination'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String(100), nullable=False)\n    country = Column(String(50))\n\n    \"\"\"description: Holiday destinations available for planning.\"\"\"",
+            "description": "Holiday destinations available for planning.",
+            "name": "Destination"
+        },
+        {
+            "classname": "Holiday",
+            "code": "class Holiday(Base):\n    __tablename__ = 'holiday'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    user_id = Column(Integer, ForeignKey('user.id'))\n    destination_id = Column(Integer, ForeignKey('destination.id'))\n    start_date = Column(DateTime, nullable=False)\n    end_date = Column(DateTime, nullable=False)\n\n    \"\"\"description: Details of each holiday planned by users.\"\"\"",
+            "description": "Details of each holiday planned by users.",
+            "name": "Holiday"
+        },
+        {
+            "classname": "Accommodation",
+            "code": "class Accommodation(Base):\n    __tablename__ = 'accommodation'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    name = Column(String(100))\n    address = Column(String(200))\n    cost_per_night = Column(Integer)\n\n    \"\"\"description: Accommodations reserved for holidays.\"\"\"",
+            "description": "Accommodations reserved for holidays.",
+            "name": "Accommodation"
+        },
+        {
+            "classname": "Activity",
+            "code": "class Activity(Base):\n    __tablename__ = 'activity'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    name = Column(String(100))\n    cost = Column(Integer)\n\n    \"\"\"description: Planned activities during holidays.\"\"\"",
+            "description": "Planned activities during holidays.",
+            "name": "Activity"
+        },
+        {
+            "classname": "Transport",
+            "code": "class Transport(Base):\n    __tablename__ = 'transport'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    type = Column(String(50))\n    cost = Column(Integer)\n\n    \"\"\"description: Transportations used during holidays.\"\"\"",
+            "description": "Transportations used during holidays.",
+            "name": "Transport"
+        },
+        {
+            "classname": "Review",
+            "code": "class Review(Base):\n    __tablename__ = 'review'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    rating = Column(Integer)\n    comment = Column(String(500))\n\n    \"\"\"description: Reviews and ratings of holidays by users.\"\"\"",
+            "description": "Reviews and ratings of holidays by users.",
+            "name": "Review"
+        },
+        {
+            "classname": "Wishlist",
+            "code": "class Wishlist(Base):\n    __tablename__ = 'wishlist'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    user_id = Column(Integer, ForeignKey('user.id'))\n    destination_id = Column(Integer, ForeignKey('destination.id'))\n    preferred_travel_date = Column(DateTime)\n\n    \"\"\"description: Users' wishlist of destinations and travel plans.\"\"\"",
+            "description": "Users' wishlist of destinations and travel plans.",
+            "name": "Wishlist"
+        },
+        {
+            "classname": "TravelCompanion",
+            "code": "class TravelCompanion(Base):\n    __tablename__ = 'travel_companion'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    user_id = Column(Integer, ForeignKey('user.id'))\n\n    \"\"\"description: Travel companions for each holiday.\"\"\"",
+            "description": "Travel companions for each holiday.",
+            "name": "TravelCompanion"
+        },
+        {
+            "classname": "TravelInsurance",
+            "code": "class TravelInsurance(Base):\n    __tablename__ = 'travel_insurance'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    provider_name = Column(String(100))\n    policy_number = Column(String(50))\n    cost = Column(Integer)\n\n    \"\"\"description: Travel insurance details for holidays.\"\"\"",
+            "description": "Travel insurance details for holidays.",
+            "name": "TravelInsurance"
+        },
+        {
+            "classname": "Event",
+            "code": "class Event(Base):\n    __tablename__ = 'event'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    name = Column(String(100))\n    date = Column(DateTime)\n\n    \"\"\"description: Special events planned during holidays.\"\"\"",
+            "description": "Special events planned during holidays.",
+            "name": "Event"
+        },
+        {
+            "classname": "PackingList",
+            "code": "class PackingList(Base):\n    __tablename__ = 'packing_list'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    holiday_id = Column(Integer, ForeignKey('holiday.id'))\n    item_name = Column(String(50))\n    quantity = Column(Integer)\n\n    \"\"\"description: Packing list items for holidays.\"\"\"",
+            "description": "Packing list items for holidays.",
+            "name": "PackingList"
+        }
+    ],
+    "rules": [],
+    "test_data": "from datetime import date\n\nuser1 = User(username='john_doe', email='john@example.com', date_joined=date(2022, 1, 15))\nuser2 = User(username='jane_smith', email='jane@example.com', date_joined=date(2023, 2, 20))\nuser3 = User(username='alice_brown', email='alice@example.com', date_joined=date(2021, 11, 5))\nuser4 = User(username='bob_jones', email='bob@example.com', date_joined=date(2023, 3, 10))\n\n\ndestination1 = Destination(name='Paris', country='France')\ndestination2 = Destination(name='Rome', country='Italy')\ndestination3 = Destination(name='Tokyo', country='Japan')\ndestination4 = Destination(name='New York', country='USA')\n\n\nholiday1 = Holiday(user_id=1, destination_id=1, start_date=date(2024, 6, 1), end_date=date(2024, 6, 15))\nholiday2 = Holiday(user_id=2, destination_id=2, start_date=date(2023, 7, 10), end_date=date(2023, 7, 20))\nholiday3 = Holiday(user_id=3, destination_id=3, start_date=date(2023, 8, 25), end_date=date(2023, 9, 10))\nholiday4 = Holiday(user_id=4, destination_id=4, start_date=date(2024, 5, 5), end_date=date(2024, 5, 15))\n\n\naccommodation1 = Accommodation(holiday_id=1, name='Hotel Parisien', address='123 Paris St', cost_per_night=200)\naccommodation2 = Accommodation(holiday_id=2, name='Rome Inn', address='456 Rome Rd', cost_per_night=150)\naccommodation3 = Accommodation(holiday_id=3, name='Tokyo Lodge', address='789 Tokyo Ave', cost_per_night=250)\naccommodation4 = Accommodation(holiday_id=4, name='NYC Hotel', address='321 NY Blvd', cost_per_night=300)\n\n\nactivity1 = Activity(holiday_id=1, name='Eiffel Tower Visit', cost=50)\nactivity2 = Activity(holiday_id=2, name='Colosseum Tour', cost=80)\nactivity3 = Activity(holiday_id=3, name='Mt. Fuji Hike', cost=100)\nactivity4 = Activity(holiday_id=4, name='Statue of Liberty Visit', cost=60)\n\n\ntransport1 = Transport(holiday_id=1, type='Flight', cost=500)\ntransport2 = Transport(holiday_id=2, type='Train', cost=200)\ntransport3 = Transport(holiday_id=3, type='Bus', cost=100)\ntransport4 = Transport(holiday_id=4, type='Car Rental', cost=300)\n\n\nreview1 = Review(holiday_id=1, rating=5, comment='Amazing experience!')\nreview2 = Review(holiday_id=2, rating=4, comment='Beautiful sights.')\nreview3 = Review(holiday_id=3, rating=5, comment='Loved every minute!')\nreview4 = Review(holiday_id=4, rating=3, comment='Good, but could be better.')\n\n\nwishlist1 = Wishlist(user_id=1, destination_id=3, preferred_travel_date=date(2024, 11, 5))\nwishlist2 = Wishlist(user_id=2, destination_id=4, preferred_travel_date=date(2022, 6, 15))\nwishlist3 = Wishlist(user_id=3, destination_id=1, preferred_travel_date=date(2023, 9, 20))\nwishlist4 = Wishlist(user_id=4, destination_id=2, preferred_travel_date=date(2025, 4, 10))\n\n\ntravel_companion1 = TravelCompanion(holiday_id=1, user_id=2)\ntravel_companion2 = TravelCompanion(holiday_id=2, user_id=3)\ntravel_companion3 = TravelCompanion(holiday_id=3, user_id=4)\ntravel_companion4 = TravelCompanion(holiday_id=4, user_id=1)\n\n\ntravel_insurance1 = TravelInsurance(holiday_id=1, provider_name='Safe Travels', policy_number='ST12345', cost=100)\ntravel_insurance2 = TravelInsurance(holiday_id=2, provider_name='Secure Trip', policy_number='ST67890', cost=80)\ntravel_insurance3 = TravelInsurance(holiday_id=3, provider_name='Travel Guard', policy_number='TGD7890', cost=150)\ntravel_insurance4 = TravelInsurance(holiday_id=4, provider_name='Holiday Safe', policy_number='HS6789', cost=120)\n\n\nevent1 = Event(holiday_id=1, name='Paris Jazz Festival', date=date(2024, 6, 5))\nevent2 = Event(holiday_id=2, name='Rome Fashion Week', date=date(2023, 7, 15))\nevent3 = Event(holiday_id=3, name='Tokyo Anime Expo', date=date(2023, 8, 30))\nevent4 = Event(holiday_id=4, name='NYC Marathon', date=date(2024, 5, 10))\n\n\npacking_list1 = PackingList(holiday_id=1, item_name='Sunglasses', quantity=2)\npacking_list2 = PackingList(holiday_id=2, item_name='Walking shoes', quantity=1)\npacking_list3 = PackingList(holiday_id=3, item_name='Travel Adapter', quantity=2)\npacking_list4 = PackingList(holiday_id=4, item_name='Camera', quantity=1)",
+    "name": "holiday_planner"
+}

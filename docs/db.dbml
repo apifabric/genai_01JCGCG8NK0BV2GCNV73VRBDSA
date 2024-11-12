@@ -1,0 +1,105 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Table Accommodation {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    name VARCHAR(100) 
+    address VARCHAR(200) 
+    cost_per_night INTEGER 
+    }
+
+Table Holiday {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    destination_id INTEGER 
+    start_date DATETIME 
+    end_date DATETIME 
+    }
+
+Table Activity {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    name VARCHAR(100) 
+    cost INTEGER 
+    }
+
+Table Destination {
+    id INTEGER [primary key]
+    name VARCHAR(100) 
+    country VARCHAR(50) 
+    }
+
+Table Event {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    name VARCHAR(100) 
+    date DATETIME 
+    }
+
+Table User {
+    id INTEGER [primary key]
+    username VARCHAR(50) 
+    email VARCHAR(100) 
+    date_joined DATETIME 
+    }
+
+Table PackingList {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    item_name VARCHAR(50) 
+    quantity INTEGER 
+    }
+
+Table Review {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    rating INTEGER 
+    comment VARCHAR(500) 
+    }
+
+Table Transport {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    Type VARCHAR(50) 
+    cost INTEGER 
+    }
+
+Table TravelCompanion {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    user_id INTEGER 
+    }
+
+Table TravelInsurance {
+    id INTEGER [primary key]
+    holiday_id INTEGER 
+    provider_name VARCHAR(100) 
+    policy_number VARCHAR(50) 
+    cost INTEGER 
+    }
+
+Table Wishlist {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    destination_id INTEGER 
+    preferred_travel_date DATETIME 
+    }
+
+
+
+// Relationships
+    Ref: Accommodation.(holiday_id) < Holiday.(id)
+    Ref: Holiday.(destination_id) < Destination.(id)
+    Ref: Holiday.(user_id) < User.(id)
+    Ref: Activity.(holiday_id) < Holiday.(id)
+    Ref: Event.(holiday_id) < Holiday.(id)
+    Ref: PackingList.(holiday_id) < Holiday.(id)
+    Ref: Review.(holiday_id) < Holiday.(id)
+    Ref: Transport.(holiday_id) < Holiday.(id)
+    Ref: TravelCompanion.(holiday_id) < Holiday.(id)
+    Ref: TravelCompanion.(user_id) < User.(id)
+    Ref: TravelInsurance.(holiday_id) < Holiday.(id)
+    Ref: Wishlist.(destination_id) < Destination.(id)
+    Ref: Wishlist.(user_id) < User.(id)

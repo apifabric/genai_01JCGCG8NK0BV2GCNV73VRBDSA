@@ -1,0 +1,327 @@
+about:
+  date: November 12, 2024 14:31:18
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 13
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Accommodation:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: address
+    - name: cost_per_night
+    - name: id
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: Accommodation
+    user_key: name
+  Activity:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: cost
+    - name: id
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: Activity
+    user_key: name
+  Destination:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: country
+    - name: id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - destination_id
+      name: HolidayList
+      resource: Holiday
+    - direction: tomany
+      fks:
+      - destination_id
+      name: WishlistList
+      resource: Wishlist
+    type: Destination
+    user_key: name
+  Event:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: date
+      type: DATETIME
+    - name: id
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: Event
+    user_key: name
+  Holiday:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: destination_id
+    - name: user_id
+    - name: start_date
+      required: true
+      type: DATETIME
+    - name: end_date
+      required: true
+      type: DATETIME
+    tab_groups:
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: AccommodationList
+      resource: Accommodation
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: ActivityList
+      resource: Activity
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: EventList
+      resource: Event
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: PackingListList
+      resource: PackingList
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: ReviewList
+      resource: Review
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: TransportList
+      resource: Transport
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: TravelCompanionList
+      resource: TravelCompanion
+    - direction: tomany
+      fks:
+      - holiday_id
+      name: TravelInsuranceList
+      resource: TravelInsurance
+    - direction: toone
+      fks:
+      - destination_id
+      name: destination
+      resource: Destination
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: Holiday
+    user_key: id
+  PackingList:
+    attributes:
+    - label: ' item_name*'
+      name: item_name
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: quantity
+    - name: id
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: PackingList
+    user_key: item_name
+  Review:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: rating
+    - name: comment
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: Review
+    user_key: id
+  Transport:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: Type
+    - name: cost
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: Transport
+    user_key: id
+  TravelCompanion:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: user_id
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: TravelCompanion
+    user_key: id
+  TravelInsurance:
+    attributes:
+    - label: ' provider_name*'
+      name: provider_name
+      search: true
+      sort: true
+    - name: holiday_id
+    - name: policy_number
+    - name: cost
+    - name: id
+    tab_groups:
+    - direction: toone
+      fks:
+      - holiday_id
+      name: holiday
+      resource: Holiday
+    type: TravelInsurance
+    user_key: provider_name
+  User:
+    attributes:
+    - label: ' username*'
+      name: username
+      required: true
+      search: true
+      sort: true
+    - name: email
+      required: true
+    - name: id
+    - name: date_joined
+      type: DATETIME
+    tab_groups:
+    - direction: tomany
+      fks:
+      - user_id
+      name: HolidayList
+      resource: Holiday
+    - direction: tomany
+      fks:
+      - user_id
+      name: TravelCompanionList
+      resource: TravelCompanion
+    - direction: tomany
+      fks:
+      - user_id
+      name: WishlistList
+      resource: Wishlist
+    type: User
+    user_key: username
+  Wishlist:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: destination_id
+    - name: user_id
+    - name: preferred_travel_date
+      type: DATETIME
+    tab_groups:
+    - direction: toone
+      fks:
+      - destination_id
+      name: destination
+      resource: Destination
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: Wishlist
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
